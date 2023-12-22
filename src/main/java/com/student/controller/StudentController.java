@@ -73,29 +73,4 @@ public class StudentController {
 		}
 	}
 	
-	@PostMapping("/addStudent")
-	public ResponseEntity<Student> addPlusStudent(@RequestBody Student student){
-		studentService.add(student);
-		/*if(student.getId() > 0) {
-			URI uri = URI.create("/college/student/" + student.getId());
-			return ResponseEntity.accepted().location(uri).build();
-		} else {
-			return ResponseEntity.badRequest().build();
-		}*/
-		return ResponseEntity.ok(studentService.get(student.getId()));
-	}
-	
-	@PostMapping("/addCollege")
-	public void addPlusStudent(@RequestBody College student){
-		//studentService.add(student);
-		/*if(student.getId() > 0) {
-			URI uri = URI.create("/college/student/" + student.getId());
-			return ResponseEntity.accepted().location(uri).build();
-		} else {
-			return ResponseEntity.badRequest().build();
-		}*/
-		System.out.print("OK");
-	}
-	//comment
-	//mattia
 }
