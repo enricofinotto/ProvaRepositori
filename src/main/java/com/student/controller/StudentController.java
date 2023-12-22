@@ -68,5 +68,17 @@ public class StudentController {
 		return getStudent(student.getId());
 	}
 	
+	/*@PostMapping("/updateStudentSimple")
+	public String updateStudentSimple(@RequestBody Student student) {
+		if(studentService.get(student.getId())==null)
+			return "Error: non-existent student";
+		studentService.delete(student.getId());
+		addStudent(student);
+		return "update completed successfully";
+	}*/
 	
+	@PostMapping("/updateStudent")
+	public Student updateStudent(@RequestBody Student student) {
+		return studentService.update(student);
+	}
 }

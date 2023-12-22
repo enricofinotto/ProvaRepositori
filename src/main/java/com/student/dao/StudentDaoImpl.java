@@ -54,6 +54,17 @@ public class StudentDaoImpl implements StudentDao {
 		students.put(id, student);	
 	}
 	
+	/*@Override
+	public Student update(Student updatedStudent) {
+		if(getOne(updatedStudent.getId()) == null)
+			return null;
+		students.replace(updatedStudent.getId(), updatedStudent);
+		return updatedStudent;
+	}*/
 	
+	@Override
+	public Student update(Student updatedStudent) {
+		return (students.replace(updatedStudent.getId(), updatedStudent)!=null)? updatedStudent : null;
+	}
  
 }
