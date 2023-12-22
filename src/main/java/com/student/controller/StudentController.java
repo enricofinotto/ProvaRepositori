@@ -62,15 +62,11 @@ public class StudentController {
 		return studentService.getAllStudentsInDepartment(department, optional.orElse(""));
 	}
 	
-	@PostMapping
-	public ResponseEntity<String> addStudent(@RequestBody Student student){
+	@PostMapping("/addStudent")
+	public Student addStudent(@RequestBody Student student){
 		studentService.add(student);
-		if(student.getId() > 0) {
-			URI uri = URI.create("/college/student/" + student.getId());
-			return ResponseEntity.accepted().location(uri).build();
-		} else {
-			return ResponseEntity.badRequest().build();
-		}
+		return getStudent(student.getId());
 	}
+	
 	
 }
