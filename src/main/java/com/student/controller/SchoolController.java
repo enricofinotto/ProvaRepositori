@@ -28,9 +28,5 @@ public class SchoolController {
 		return new ModelAndView("home", "colleges", colleges);
 	}
 	
-	@GetMapping("/getView")
-	public String getView() {
-		return "sndhome";
-	}
 
 }
