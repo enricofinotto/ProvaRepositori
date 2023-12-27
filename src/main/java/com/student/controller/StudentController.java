@@ -80,7 +80,7 @@ public class StudentController {
 	}*/
 	
 	@PutMapping("/updateStudent")
-	public void updateStudentSnd(@RequestBody Student student) {
+	public void updateStudent(@RequestBody Student student) {
 		studentService.update(student);
 	}
 }
