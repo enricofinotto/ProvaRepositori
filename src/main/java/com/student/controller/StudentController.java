@@ -83,4 +83,5 @@ public class StudentController {
 	public void updateStudent(@RequestBody Student student) {
 		studentService.update(student);
 	}
+	
 }
