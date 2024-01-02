@@ -38,6 +38,7 @@ public class StudentServiceImpl implements StudentService {
 		if (student.getFirstName() != null && student.getSurname() != null && student.getDept() != null) {
 			return studentDao.add(student);
 		}
+		System.out.println("nome o cognome o dipartimento non inseriti");
 		return null;
 	}
 	
