@@ -54,20 +54,13 @@ public class StudentDaoImpl implements StudentDao {
 		students.put(id, student);	
 	}
 	
-	/*@Override
-	public Student update(Student updatedStudent) {
-		if(getOne(updatedStudent.getId()) == null)
-			return null;
-		students.replace(updatedStudent.getId(), updatedStudent);
-		return updatedStudent;
-	}*/
-	
 	@Override
 	public void update(Student updatedStudent) {
 		if(!students.containsKey(updatedStudent.getId())) {
 			System.out.println("id inesistente");
+		}else {
+			students.replace(updatedStudent.getId(), updatedStudent);
 		}
-		students.replace(updatedStudent.getId(), updatedStudent);
 	}
  
 }

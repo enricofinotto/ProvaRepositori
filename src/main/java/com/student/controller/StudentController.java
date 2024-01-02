@@ -81,7 +81,10 @@ public class StudentController {
 	
 	@PutMapping("/updateStudent")
 	public void updateStudent(@RequestBody Student student) {
-		studentService.update(student);
+		if(student.getFirstName()==null || student.getSurname()==null) {
+			System.out.println("nome o cognome inesistente");
+		}else {
+			studentService.update(student);
+		}
 	}
-	
 }
