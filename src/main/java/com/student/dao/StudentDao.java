@@ -9,5 +9,5 @@ public interface StudentDao {
 	Student getOne(long id);
 	Collection<Student> getAll();
 	void add(Student student);
-	Student update(Student student);
+	void update(Student student);
 }

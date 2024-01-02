@@ -63,8 +63,11 @@ public class StudentDaoImpl implements StudentDao {
 	}*/
 	
 	@Override
-	public Student update(Student updatedStudent) {
-		return (students.replace(updatedStudent.getId(), updatedStudent)!=null)? updatedStudent : null;
+	public void update(Student updatedStudent) {
+		if(!students.containsKey(updatedStudent.getId())) {
+			System.out.println("id inesistente");
+		}
+		students.replace(updatedStudent.getId(), updatedStudent);
 	}
  
 }

@@ -44,10 +44,8 @@ public class StudentServiceImpl implements StudentService {
 	}
 	
 	
-	public Student update(Student student) {
-		if(get(student.getId())!= null)
-			return studentDao.update(student);
-		return null;
+	public void update(Student student) {
+		studentDao.update(student);
 	}
 
 }
