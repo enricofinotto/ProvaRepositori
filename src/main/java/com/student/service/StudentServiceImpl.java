@@ -34,10 +34,16 @@ public class StudentServiceImpl implements StudentService {
 	}
 
 	@Override
-	public void add(Student student) {
+	public Student add(Student student) {
 		if (student.getFirstName() != null && student.getSurname() != null && student.getDept() != null) {
-			studentDao.add(student);
+			return studentDao.add(student);
 		}
+		return null;
+	}
+	
+	
+	public void update(Student student) {
+		studentDao.update(student);
 	}
 
 	@Override

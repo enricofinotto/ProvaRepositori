@@ -15,9 +15,11 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -64,14 +66,8 @@ public class StudentController {
 	}
 
 	@PostMapping("/add")
-	public ResponseEntity<String> addStudent(@RequestBody Student student) {
-		studentService.add(student);
-		if (student.getId() > 0) {
-			URI uri = URI.create("/college/student/" + student.getId());
-			return ResponseEntity.accepted().location(uri).build();
-		} else {
-			return ResponseEntity.badRequest().build();
-		}
+	public Student addStudent(@RequestBody Student student) {
+		return studentService.add(student);
 	}
 
 	/*
@@ -104,5 +100,13 @@ public class StudentController {
 			return "Id non adeguato!";
 		}
 	}
-
+	
+	@PutMapping("/updateStudent")
+	public void updateStudent(@RequestBody Student student) {
+		if(student.getFirstName()==null || student.getSurname()==null) {
+			System.out.println("nome o cognome inesistente");
+		}else {
+			studentService.update(student);
+		}
+	}
 }

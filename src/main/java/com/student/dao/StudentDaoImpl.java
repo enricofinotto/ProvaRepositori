@@ -50,10 +50,11 @@ public class StudentDaoImpl implements StudentDao {
 	}
 
 	@Override
-	public void add(Student student) {
+	public Student add(Student student) {
 		String nome = student.getFirstName();
 		String cognome = student.getSurname();
 		boolean presenti = false;
+		long newId = -1;
 
 		for (Student student1 : students.values()) {
 			String valorenome = student1.getFirstName();
@@ -66,11 +67,15 @@ public class StudentDaoImpl implements StudentDao {
 			}
 		}
 		if (presenti == false) {
-			long id = students.keySet().stream().count();
-			id++;
-			student.setId(id);
-			students.put(id, student);
+			for (Student st : students.values()) {
+				newId = st.getId();
+			}
+			newId++;
+			student.setId(newId);
+			students.put(newId, student);
+			
 		}
+		return students.get(newId);
 	}
 
 	@Override
@@ -78,13 +83,22 @@ public class StudentDaoImpl implements StudentDao {
 		// TODO Auto-generated method stub
 		// id = students.keySet().stream().count();
 		boolean presente = true;
-		if (id > students.size() || students.containsKey(id)) {
+		if (id > students.size() || !students.containsKey(id)) {
 			System.out.println("Id non presente!");
 			presente = false;
 		}
-		if (presente = true) {
+		if (presente == true) {
 			students.remove(id);
+		}
+	}
 
+	
+	@Override
+	public void update(Student updatedStudent) {
+		if(!students.containsKey(updatedStudent.getId())) {
+			System.out.println("id inesistente");
+		}else {
+			students.replace(updatedStudent.getId(), updatedStudent);
 		}
 	}
 
