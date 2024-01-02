@@ -8,12 +8,12 @@ import javax.inject.Named;
 
 import com.student.core.Student;
 import com.student.dao.StudentDao;
+
 @Named
 public class StudentServiceImpl implements StudentService {
 	@Inject
 	private StudentDao studentDao;
-	 
- 
+
 	@Override
 	public Student get(long id) {
 		return studentDao.getOne(id);
@@ -29,17 +29,21 @@ public class StudentServiceImpl implements StudentService {
 	}
 
 	public Collection<Student> getAllStudentsInDepartment(String department, String lastNameLike) {
-		return studentDao.getAll()
-				.stream()
-				.filter(p-> p.getDept().equals(department))
-				.filter(p-> p.getSurname().contains(lastNameLike))
-				.collect(Collectors.toList());
+		return studentDao.getAll().stream().filter(p -> p.getDept().equals(department))
+				.filter(p -> p.getSurname().contains(lastNameLike)).collect(Collectors.toList());
 	}
-	
+
 	@Override
 	public void add(Student student) {
-		if(student.getFirstName() != null && student.getSurname() != null && student.getDept() != null) {
+		if (student.getFirstName() != null && student.getSurname() != null && student.getDept() != null) {
 			studentDao.add(student);
+		}
+	}
+
+	@Override
+	public void delete(long id) {
+		if (id > 0) {
+			studentDao.delete(id);
 		}
 	}
 
