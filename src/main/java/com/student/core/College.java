@@ -3,6 +3,19 @@ package com.student.core;
 public class College {
 	
  
+	private long id;
+	public long getId() {
+		return id;
+	}
+
+
+
+	public void setId(long id) {
+		this.id = id;
+	}
+
+
+
 	private String name;
 	private String street;
 	private String city;
@@ -14,8 +27,9 @@ public class College {
  
 	 
 
-	public College(String name, String street, String city, String state) {
+	public College(long id, String name, String street, String city, String state) {
 		super();
+		this.id = id;
 		this.name = name;
 		this.street = street;
 		this.city = city;

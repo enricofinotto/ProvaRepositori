@@ -19,19 +19,30 @@ public class Student {
 	 
      private Double fees;
      
-     private College college;
+     private long id_college;
+     
+     public long getId_college() {
+		return id_college;
+	}
+
+	public void setId_college(long id_college) {
+		this.id_college = id_college;
+	}
+
+	private College college;
 	
 	public Student() {
 		super();
 	}
 	 
-	public Student(long id, String firstName, String surname, String dept, Double fees) {
+	public Student(long id, String firstName, String surname, String dept, Double fees, long id_college) {
 		super();
 		this.id = id;
 		this.firstName = firstName;
 		this.surname = surname;
 		this.dept = dept;
 		this.fees = fees;
+		this.id_college = id_college;
 	}
 
 	public long getId() {
