@@ -39,12 +39,13 @@ public class StudentDaoImpl implements StudentDao {
 		colleges.put(6L, new College(3, "Boston College", "140 Commonwealth Avenue", "Chestnut Hill", "Massachusetts"));
 		colleges.put(Long.MAX_VALUE, new College(4, "Tulane", "6823 St Charles Ave", "New Orleans", "Louisiana"));
 	}
-
+	
 	@Override
-	public Student getOne(long id) {
-		Student student = students.get(id);
-		student.setCollege(colleges.ceilingEntry(student.getId()).getValue());
-		return student;
+	public Map<String,Object> getOne(long id) {
+		String query = "SELECT * FROM student INNER JOIN college ON student.id_college=college.id WHERE student.id = "+id+";";
+		List<Map<String,Object>> res = jdbc.queryForList(query);
+		System.out.println(query);
+		return res.get(0);
 	}
 
 	@Override

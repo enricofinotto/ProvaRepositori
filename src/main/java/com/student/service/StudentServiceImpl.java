@@ -1,6 +1,7 @@
 package com.student.service;
 
 import java.util.Collection;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 import javax.inject.Inject;
@@ -15,7 +16,7 @@ public class StudentServiceImpl implements StudentService {
 	private StudentDao studentDao;
 
 	@Override
-	public Student get(long id) {
+	public Map<String,Object> get(long id) {
 		return studentDao.getOne(id);
 	}
 

@@ -2,6 +2,7 @@ package com.student.controller;
 
 import java.net.URI;
 import java.util.Collection;
+import java.util.Map;
 import java.util.Optional;
 
 import javax.inject.Inject;
@@ -50,13 +51,8 @@ public class StudentController {
 	}
 
 	@GetMapping("/{id}")
-	public Student getStudent(@PathVariable("id") long id) {
+	public Map<String,Object> getStudent(@PathVariable("id") long id) {
 		return studentService.get(id);
-	}
-
-	@GetMapping(path = "/single", produces = { MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE })
-	public ResponseEntity<Student> getSingleStudent(@RequestParam("id") Optional<Long> optional) {
-		return ResponseEntity.ok(studentService.get(optional.orElse(1l)));
 	}
 
 	@GetMapping("/search/{department}")
