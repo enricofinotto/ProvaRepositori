@@ -79,11 +79,10 @@ public class StudentDaoImpl implements StudentDao {
 			newId++;
 			student.setId(newId);
 			students.put(newId, student);
-			
+			String query = "INSERT INTO student (id, name, surname, department, fees) VALUES"
+					+ "('"+student.getId()+"','"+student.getFirstName()+"', '"+student.getSurname()+"', '"+student.getDept()+"', "+student.getFees()+");";
+			jdbc.update(query);
 		}
-		String query = "INSERT INTO student (id, name, surname, department, fees) VALUES"
-				+ "('"+student.getId()+"','"+student.getFirstName()+"', '"+student.getSurname()+"', '"+student.getDept()+"', "+student.getFees()+");";
-		jdbc.update(query);
 		return students.get(newId);
 	}
 
