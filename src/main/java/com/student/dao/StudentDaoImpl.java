@@ -2,6 +2,7 @@ package com.student.dao;
 
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.NavigableMap;
 import java.util.SortedMap;
@@ -52,7 +53,11 @@ public class StudentDaoImpl implements StudentDao {
 			p.setCollege(colleges.ceilingEntry(p.getId()).getValue());
 			return p;
 		}).collect(Collectors.toList());
-		return studentList;
+		
+		
+		String query = "SELECT * FROM student INNER JOIN college ON student.id_college=college.id;";
+		List<Map<String,Object>> mp = jdbc.queryForList(query);
+		return (Collection)mp;
 	}
 
 	@Override
