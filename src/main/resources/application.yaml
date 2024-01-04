@@ -6,3 +6,9 @@ server:
  port: 8080
  servlet:
   context-path: /college
+  
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/postgres
+    username: postgres
+    password: postgres

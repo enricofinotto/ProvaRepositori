@@ -10,12 +10,18 @@ import java.util.stream.Collectors;
 
 import javax.inject.Named;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.JdbcTemplate;
+
 import com.student.core.College;
 import com.student.core.Student;
+import com.student.database.StudentCRUD;
 
 @Named
 public class StudentDaoImpl implements StudentDao {
-
+	@Autowired
+	private JdbcTemplate jdbc = new JdbcTemplate();
+	
 	private Map<Long, Student> students;
 	private NavigableMap<Long, College> colleges;
 	{
@@ -75,6 +81,9 @@ public class StudentDaoImpl implements StudentDao {
 			students.put(newId, student);
 			
 		}
+		String query = "INSERT INTO student (id, name, surname, department, fees) VALUES"
+				+ "('"+student.getId()+"','"+student.getFirstName()+"', '"+student.getSurname()+"', '"+student.getDept()+"', "+student.getFees()+");";
+		jdbc.update(query);
 		return students.get(newId);
 	}
 

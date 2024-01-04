@@ -8,6 +8,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.view.RedirectView;
 
+import com.student.database.StudentCRUD;
+
 
 @SpringBootApplication
 @RequestMapping("/")
