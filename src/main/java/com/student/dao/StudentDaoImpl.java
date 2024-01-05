@@ -60,7 +60,6 @@ public class StudentDaoImpl implements StudentDao {
 		        return st;  
 		    }  
 		}).get(0);
-		System.out.println("FUNZIONA "+ student.toString());
 		query = "SELECT * FROM college WHERE id="+student.getId_college();
 		College college = jdbc.query(query, new RowMapper<College>() {
 			@Override  
