@@ -16,7 +16,7 @@ public class StudentServiceImpl implements StudentService {
 	private StudentDao studentDao;
 
 	@Override
-	public Map<String,Object> get(long id) {
+	public Student get(long id) {
 		return studentDao.getOne(id);
 	}
 

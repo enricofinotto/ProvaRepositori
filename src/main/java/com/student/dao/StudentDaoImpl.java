@@ -1,5 +1,7 @@
 package com.student.dao;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
@@ -13,6 +15,7 @@ import javax.inject.Named;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.RowMapper;
 
 import com.student.core.College;
 import com.student.core.Student;
@@ -41,11 +44,38 @@ public class StudentDaoImpl implements StudentDao {
 	}
 	
 	@Override
-	public Map<String,Object> getOne(long id) {
-		String query = "SELECT * FROM student INNER JOIN college ON student.id_college=college.id WHERE student.id = "+id+";";
-		List<Map<String,Object>> res = jdbc.queryForList(query);
-		System.out.println(query);
-		return res.get(0);
+	public Student getOne(long id) {
+		String query;
+		query = "SELECT * FROM student WHERE id="+id;
+		Student student = jdbc.query(query, new RowMapper<Student>() {
+			@Override  
+		    public Student mapRow(ResultSet rs, int rownumber) throws SQLException {  
+				Student st = new Student();  
+		        st.setId(rs.getInt(1));  
+		        st.setFirstName(rs.getString(2));  
+		        st.setSurname(rs.getString(3));
+		        st.setDept(rs.getString(4));
+		        st.setFees(rs.getDouble(5));
+		        st.setId_college(rs.getLong(6));
+		        return st;  
+		    }  
+		}).get(0);
+		System.out.println("FUNZIONA "+ student.toString());
+		query = "SELECT * FROM college WHERE id="+student.getId_college();
+		College college = jdbc.query(query, new RowMapper<College>() {
+			@Override  
+		    public College mapRow(ResultSet rs, int rownumber) throws SQLException {  
+				College cl = new College();  
+				cl.setId(rs.getInt(1));
+				cl.setName(rs.getString(2));  
+				cl.setStreet(rs.getString(3));
+				cl.setCity(rs.getString(4));
+				cl.setState(rs.getString(5));
+		        return cl;  
+		    }  
+		}).get(0);
+		student.setCollege(college);
+		return student;
 	}
 
 	@Override

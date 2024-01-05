@@ -7,7 +7,7 @@ import com.student.core.Student;
 
 public interface StudentDao {
 	
-	Map<String,Object> getOne(long id);
+	Student getOne(long id);
 	Collection<Student> getAll();
 	Student add(Student student);
 	void delete(long id);
