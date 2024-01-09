@@ -1,6 +1,7 @@
 package com.student.service;
 
 import java.util.Collection;
+import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
@@ -21,7 +22,7 @@ public class StudentServiceImpl implements StudentService {
 	}
 
 	@Override
-	public Collection<Student> getAllStudents() {
+	public List<Student> getAllStudents() {
 		return studentDao.getAll();
 	}
 

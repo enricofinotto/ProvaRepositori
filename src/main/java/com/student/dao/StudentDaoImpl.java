@@ -78,15 +78,37 @@ public class StudentDaoImpl implements StudentDao {
 	}
 
 	@Override
-	public Collection<Student> getAll() {
+	public List<Student> getAll() {
 		/*Collection<Student> studentList = students.values().stream().map(p -> {
 			p.setCollege(colleges.ceilingEntry(p.getId()).getValue());
 			return p;
 		}).collect(Collectors.toList());*/
 		
 		String query = "SELECT * FROM student INNER JOIN college ON student.id_college=college.id;";
-		List<Map<String,Object>> mp = jdbc.queryForList(query);
-		return (Collection)mp;
+		List<Student> mp = jdbc.query(query, new RowMapper<Student>() {
+			@Override  
+		    public Student mapRow(ResultSet rs, int rownumber) throws SQLException {
+				College cl = new College();
+				Student st = new Student();
+				
+				cl.setId(rs.getInt(7));
+				cl.setName(rs.getString(8));  
+				cl.setStreet(rs.getString(9));
+				cl.setCity(rs.getString(10));
+				cl.setState(rs.getString(11));
+				
+				st.setId(rs.getInt(1));  
+		        st.setFirstName(rs.getString(2));  
+		        st.setSurname(rs.getString(3));
+		        st.setDept(rs.getString(4));
+		        st.setFees(rs.getDouble(5));
+		        st.setId_college(rs.getLong(6));
+				
+		        st.setCollege(cl);
+		        return st;  
+		    }  
+		});
+		return mp;
 	}
 
 	@Override
