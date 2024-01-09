@@ -19,6 +19,7 @@ import org.springframework.jdbc.core.RowMapper;
 
 import com.student.core.College;
 import com.student.core.Student;
+import com.student.database.QueryList;
 import com.student.database.StudentCRUD;
 
 @Named
@@ -45,9 +46,7 @@ public class StudentDaoImpl implements StudentDao {
 	
 	@Override
 	public Student getOne(long id) {
-		String query;
-		query = "SELECT * FROM student WHERE id="+id;
-		Student student = jdbc.query(query, new RowMapper<Student>() {
+		Student student = jdbc.query(QueryList.getOneStudent(id), new RowMapper<Student>() {
 			@Override  
 		    public Student mapRow(ResultSet rs, int rownumber) throws SQLException {  
 				Student st = new Student();  
@@ -60,8 +59,7 @@ public class StudentDaoImpl implements StudentDao {
 		        return st;  
 		    }  
 		}).get(0);
-		query = "SELECT * FROM college WHERE id="+student.getId_college();
-		College college = jdbc.query(query, new RowMapper<College>() {
+		College college = jdbc.query(QueryList.getOneCollege(student.getId_college()), new RowMapper<College>() {
 			@Override  
 		    public College mapRow(ResultSet rs, int rownumber) throws SQLException {  
 				College cl = new College();  
@@ -84,8 +82,7 @@ public class StudentDaoImpl implements StudentDao {
 			return p;
 		}).collect(Collectors.toList());*/
 		
-		String query = "SELECT * FROM student INNER JOIN college ON student.id_college=college.id;";
-		List<Student> mp = jdbc.query(query, new RowMapper<Student>() {
+		List<Student> mp = jdbc.query(QueryList.getAllStudents(), new RowMapper<Student>() {
 			@Override  
 		    public Student mapRow(ResultSet rs, int rownumber) throws SQLException {
 				College cl = new College();
@@ -135,9 +132,7 @@ public class StudentDaoImpl implements StudentDao {
 			newId++;
 			student.setId(newId);
 			students.put(newId, student);
-			String query = "INSERT INTO student (id, name, surname, department, fees, id_college) VALUES"
-					+ "('"+student.getId()+"','"+student.getFirstName()+"', '"+student.getSurname()+"', '"+student.getDept()+"', "+student.getFees()+", "+student.getCollege().getId()+");";
-			jdbc.update(query);
+			jdbc.update(QueryList.addStudent(student));
 		}
 		return students.get(newId);
 	}
@@ -151,9 +146,7 @@ public class StudentDaoImpl implements StudentDao {
 		}
 		if (presente == true) {
 			students.remove(id);
-			String query = "DELETE FROM student WHERE id = "+id+";";
-			System.out.println(query);
-			jdbc.update(query);
+			jdbc.update(QueryList.deleteStudent(id));
 		}
 	}
 
@@ -164,14 +157,7 @@ public class StudentDaoImpl implements StudentDao {
 			System.out.println("id inesistente");
 		}else {
 			students.replace(updatedStudent.getId(), updatedStudent);
-			String query = "UPDATE student SET name='"+updatedStudent.getFirstName()
-			+"', surname='"+updatedStudent.getSurname()
-			+"', department='"+updatedStudent.getDept()
-			+"', fees="+updatedStudent.getFees()
-			+", id_college="+updatedStudent.getId_college()
-			+" WHERE id = "+updatedStudent.getId()+";";
-			System.out.println(query);
-			jdbc.update(query);
+			jdbc.update(QueryList.updateStudent(updatedStudent));
 		}
 	}
 
