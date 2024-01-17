@@ -10,11 +10,12 @@ import javax.inject.Named;
 
 import com.student.core.Student;
 import com.student.dao.StudentDao;
+import com.student.dao.StudentDaoImpl;
 
 @Named
 public class StudentServiceImpl implements StudentService {
 	@Inject
-	private StudentDao studentDao;
+	private StudentDao studentDao = new StudentDaoImpl();
 
 	@Override
 	public Student get(long id) {

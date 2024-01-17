@@ -11,6 +11,7 @@ import org.springframework.web.servlet.view.RedirectView;
 import com.student.database.StudentCRUD;
 
 
+
 @SpringBootApplication
 @RequestMapping("/")
 @RestController

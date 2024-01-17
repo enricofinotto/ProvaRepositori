@@ -29,6 +29,7 @@ import com.student.StudentProperties;
 import com.student.core.College;
 import com.student.core.Student;
 import com.student.service.StudentService;
+import com.student.service.StudentServiceImpl;
 
 @RestController
 @RequestMapping(value = "/student")
@@ -38,7 +39,7 @@ public class StudentController {
 	@Inject
 	private StudentProperties studentProperties;
 	@Inject
-	private StudentService studentService;
+	private StudentService studentService = new StudentServiceImpl();
 
 	@GetMapping("/msg")
 	public String getMessage(@RequestHeader("user-agent") String userAgent) {

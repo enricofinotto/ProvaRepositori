@@ -27,6 +27,15 @@ public class StudentDaoImpl implements StudentDao {
 	@Autowired
 	private JdbcTemplate jdbc = new JdbcTemplate();
 	
+	public JdbcTemplate getJdbc() {
+		return jdbc;
+	}
+
+	public void setJdbc(JdbcTemplate jdbc) {
+		this.jdbc = jdbc;
+	}
+
+
 	private Map<Long, Student> students;
 	private NavigableMap<Long, College> colleges;
 	{
@@ -46,7 +55,7 @@ public class StudentDaoImpl implements StudentDao {
 	
 	@Override
 	public Student getOne(long id) {
-		Student student = jdbc.query(QueryList.getOneStudent(id), new RowMapper<Student>() {
+		Student student = jdbc.queryForObject(QueryList.getOneStudent(id), new RowMapper<Student>() {
 			@Override  
 		    public Student mapRow(ResultSet rs, int rownumber) throws SQLException {  
 				Student st = new Student();  
@@ -58,8 +67,8 @@ public class StudentDaoImpl implements StudentDao {
 		        st.setId_college(rs.getLong(6));
 		        return st;  
 		    }  
-		}).get(0);
-		College college = jdbc.query(QueryList.getOneCollege(student.getId_college()), new RowMapper<College>() {
+		});
+		College college = jdbc.queryForObject(QueryList.getOneCollege(student.getId_college()), new RowMapper<College>() {
 			@Override  
 		    public College mapRow(ResultSet rs, int rownumber) throws SQLException {  
 				College cl = new College();  
@@ -70,7 +79,7 @@ public class StudentDaoImpl implements StudentDao {
 				cl.setState(rs.getString(5));
 		        return cl;  
 		    }  
-		}).get(0);
+		});
 		student.setCollege(college);
 		return student;
 	}
