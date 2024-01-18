@@ -5,7 +5,7 @@ import com.student.core.Student;
 public class QueryList {
 
 	static public String getOneStudent(long id) {
-		return "SELECT * FROM student WHERE id="+id;
+		return "SELECT * FROM student INNER JOIN college ON student.id_college=college.id WHERE student.id="+id;
 	}
 	
 	static public String getOneCollege(long id) {
